@@ -6,9 +6,15 @@ def clean_zipcode(zipcode)
   zipcode.to_s.rjust(5,"0")[0..4]
 end
 
-def peak_registration_hours(registration_dates)
+def peak_registration_hour(registration_dates)
   registration_hours = registration_dates.map { |date| date.hour}
   registration_hours.max_by { |index| registration_hours.count(index)}
+end
+
+def peak_registration_day(registration_dates)
+  days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  registration_days = registration_dates.map { |date| date.wday}
+  days[registration_days.max_by { |index| registration_days.count(index)}]
 end
 
 def clean_phone_number(phone_number)
@@ -78,4 +84,5 @@ contents.each do |row|
   save_thank_you_letter(id, form_letter)
 end
 
-puts peak_registration_hours(registration_dates)
+puts peak_registration_hour(registration_dates)
+puts peak_registration_day(registration_dates)
